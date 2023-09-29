@@ -156,11 +156,7 @@ def evaluate(sentence, max_response_length=50):
     for t in range(max_response_length):
         predictions, dec_hidden, _ = decoder(dec_input, dec_hidden, enc_out)
         predicted_id = tf.argmax(predictions[0]).numpy()
-        if (
-            tokenizer.index_word[predicted_id] == '<end>' or
-            len(result) >= max_response_length - 1  # Ensure we don't exceed the maximum length
-        ):
-            break
+        
         if (
             tokenizer.index_word[predicted_id] != '<start>' and
             tokenizer.index_word[predicted_id] != '<unknown>' and
